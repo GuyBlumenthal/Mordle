@@ -1,23 +1,5 @@
 import Letter from "./Letter"
 
-function getAccuracy(letter, index, row, splitWord, totalWord, guess) {
-    const totalSplit = totalWord.split("")
-    const letterLoc = splitWord.indexOf(letter)
-    if (row === guess) {
-        return "empty"
-    } else if (splitWord[index] == letter) {
-        splitWord[index] = "-"
-        return "bang"
-    } else if (splitWord.includes(letter) && splitWord[letterLoc] != totalSplit[splitWord.indexOf(letter)]) {
-        splitWord[letterLoc] = "-"
-        return "miss"
-    } else if (letter == " ") {
-        return "empty"
-    } else {
-        return "wrong"
-    }
-}
-
 export default function Board(props) {
     const splitWord = props.word.split("")
 

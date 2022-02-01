@@ -14,7 +14,7 @@ function registerClick(text, word, guess, guesses, setGuess, setGuesses) {
       setGuess(guess + 1)
       return guesses[guess] === word || guess === 5
     }
-  } else if (text == "<=") {
+  } else if (text === "<=") {
     if (cIndex === 0) {
       return
     } else if (cIndex === -1) {
