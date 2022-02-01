@@ -25,9 +25,9 @@ export default function Board(props) {
 
             colors.forEach((el, index) => colors[index] = el ? el : 'wrong')
 
-            return <div className="flex justify-around w-full">{
+            return <div key={`${row}`} className="flex justify-around w-full">{
                 guess.split("").map((letter, index) => {
-                    return <Letter color={props.color_dict[colors[index]]} letter={letter} />
+                    return <Letter key={`${index}`} color={props.color_dict[colors[index]]} letter={letter} />
                 })
             }</div>
         })

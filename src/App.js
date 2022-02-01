@@ -1,9 +1,23 @@
 import { useState } from "react";
 import Board from "./components/Board";
 import Keyboard from "./components/Keyboard";
+import Dictionary from "./Dictionary";
+
+const localDictionary = []
+
+function loadDictionary() {
+  Dictionary.split('\n').forEach(el => localDictionary.push(el.toUpperCase()))
+}
+
+function isWord(testWord) {
+  return localDictionary.includes(testWord)
+}
 
 function genWord() {
-  return "APPLE"
+  if (localDictionary.length === 0) {
+    loadDictionary()
+  }
+  return localDictionary[Math.floor(Math.random() * localDictionary.length)]
 }
 
 function registerClick(text, word, guess, guesses, setGuess, setGuesses) {
@@ -11,8 +25,12 @@ function registerClick(text, word, guess, guesses, setGuess, setGuesses) {
   const cIndex = cGuess.indexOf(' ')
   if (text === "Enter") {
     if (cIndex === -1) {
-      setGuess(guess + 1)
-      return guesses[guess] === word || guess === 5
+      if (isWord(guesses[guess])) {
+        setGuess(guess + 1)
+        return guesses[guess] === word || guess === 5
+      } else {
+        alert("Please enter a valid word")
+      }
     }
   } else if (text === "<=") {
     if (cIndex === 0) {
@@ -39,7 +57,7 @@ export default function App() {
   }
 
   const emptyGuesses = ["     ", "     ", "     ", "     ", "     ", "     "]
-  let word = genWord()
+  const [word, setWord] = useState(genWord())
 
   const [guess, setGuess] = useState(0);
   const [guesses, setGuesses] = useState(emptyGuesses)
@@ -52,8 +70,8 @@ export default function App() {
   const resetGame = () => {
     setGuess(0)
     setGuesses(emptyGuesses)
-    word = genWord()
     setGameOver(false)
+    setWord(genWord())
   }
 
   return (<>
