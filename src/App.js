@@ -52,7 +52,7 @@ export default function App() {
   const color_dict = {
     'bang': 'bg-green-500',
     'miss': 'bg-yellow-300',
-    'wrong': 'bg-gray-300',
+    'wrong': 'bg-gray-400',
     'empty': 'bg-white',
     'keyboard': 'bg-gray-200'
   }
