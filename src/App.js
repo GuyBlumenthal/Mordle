@@ -57,11 +57,11 @@ export default function App() {
     'keyboard': 'bg-gray-200'
   }
 
-  genWord()
-
   const emptyGuesses = ["     ", "     ", "     ", "     ", "     ", "     "]
   const [word, setWord] = useState(genWord())
   const [noWord, setNoWord] = useState(false)
+
+  const [start, setStart] = useState(true)
 
   const [guess, setGuess] = useState(0);
   const [guesses, setGuesses] = useState(emptyGuesses)
@@ -71,6 +71,15 @@ export default function App() {
     setGameOver(registerClick(text, word, guess, guesses, setGuess, setGuesses, setNoWord))
   }
 
+  const anyClick = () => {
+    if (noWord) {
+      setNoWord(false)
+    }
+    if (start) {
+      setStart(false)
+    }
+  }
+
   const resetGame = () => {
     setGuess(0)
     setGuesses(emptyGuesses)
@@ -78,8 +87,8 @@ export default function App() {
     setWord(genWord())
   }
 
-  return (<div onClick={() => noWord ? setNoWord(false) : ""}>
-    <div className={`${gameOver | noWord ? "pointer-events-none opacity-40  transition-opacity ease-in duration-500 delay-500" : "opacity-100"} flex flex-col items-center`}>
+  return (<div onClick={anyClick}>
+    <div className={`${gameOver | noWord | start ? "pointer-events-none opacity-40  transition-opacity ease-in duration-500 delay-500" : "opacity-100"} flex flex-col items-center`}>
       <h1 className="text-xl">Mordle</h1>
       <Board guess={guess} guesses={guesses} word={word} color_dict={color_dict} />
       <Keyboard word={word} guesses={guesses} color_dict={color_dict} guess={guess} onClick={(text) => keyboardClick(text)} />
@@ -95,6 +104,22 @@ export default function App() {
     <div className={`${noWord ? "opacity-100" : "opacity-0"} pointer-events-none p-4 flex flex-col items-center absolute w-56 h-20 bg-white border-[1px] border-black top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}>
       <h2 className="font-bold text-lg">Try Again</h2>
       <p> {guesses[guess]} is not a word</p>
+    </div>
+    <div className={`${start ? "opacity-100" : "opacity-0 transition-opacity ease-in duration-500"} text-center pointer-events-none p-4 flex flex-col items-center absolute w-[80%] sm:w-[30rem] h-[60%] sm:h-[17rem] bg-white border-[1px] border-black top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}>
+      <h2 className="font-bold text-lg">How to Play</h2>
+      <p> Welcome to <b>Mordle</b>!</p>
+      <p>Guess the randomly selected five letter word by guessing your own words, up six times.</p>
+      <p>When you submit a word, you will get feedback on the word</p>
+      <p className="text-white">Empty Line</p>
+      <div className="mb-2">
+        <p>A <span className={`${color_dict['bang']} text-white p-1`}>green</span> letter means it is the correct letter in the correct place</p>
+      </div>
+      <div className="mb-2">
+        <p>A <span className={`${color_dict['miss']} p-1`}>yellow</span> letter means it is the correct letter in the wrong place</p>
+      </div>
+      <div className="mb-2">
+        <p>A <span className={`${color_dict['wrong']} text-white p-1`}> gray</span> letter means the letter is not in the word</p>
+      </div>
     </div>
   </div >);
 }
