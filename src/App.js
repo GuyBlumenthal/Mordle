@@ -20,7 +20,7 @@ function genWord() {
   return localDictionary[Math.floor(Math.random() * localDictionary.length)]
 }
 
-function registerClick(text, word, guess, guesses, setGuess, setGuesses) {
+function registerClick(text, word, guess, guesses, setGuess, setGuesses, setNoWord) {
   const cGuess = guesses[guess].split("")
   const cIndex = cGuess.indexOf(' ')
   if (text === "Enter") {
@@ -29,7 +29,7 @@ function registerClick(text, word, guess, guesses, setGuess, setGuesses) {
         setGuess(guess + 1)
         return guesses[guess] === word || guess === 5
       } else {
-        alert("Please enter a valid word")
+        setNoWord(true)
       }
     }
   } else if (text === "<=") {
@@ -58,13 +58,14 @@ export default function App() {
 
   const emptyGuesses = ["     ", "     ", "     ", "     ", "     ", "     "]
   const [word, setWord] = useState(genWord())
+  const [noWord, setNoWord] = useState(false)
 
   const [guess, setGuess] = useState(0);
   const [guesses, setGuesses] = useState(emptyGuesses)
   const [gameOver, setGameOver] = useState(false)
 
   const keyboardClick = (text) => {
-    setGameOver(registerClick(text, word, guess, guesses, setGuess, setGuesses))
+    setGameOver(registerClick(text, word, guess, guesses, setGuess, setGuesses, setNoWord))
   }
 
   const resetGame = () => {
@@ -74,8 +75,8 @@ export default function App() {
     setWord(genWord())
   }
 
-  return (<>
-    <div className={`${gameOver ? "pointer-events-none opacity-40  transition-opacity ease-in duration-500 delay-500" : "opacity-100"} flex flex-col items-center`}>
+  return (<div onClick={() => noWord ? setNoWord(false) : ""}>
+    <div className={`${gameOver | noWord ? "pointer-events-none opacity-40  transition-opacity ease-in duration-500 delay-500" : "opacity-100"} flex flex-col items-center`}>
       <h1 className="text-xl">Mordle</h1>
       <Board guess={guess} guesses={guesses} word={word} color_dict={color_dict} />
       <Keyboard onClick={(text) => keyboardClick(text)} />
@@ -88,5 +89,9 @@ export default function App() {
       }
       <button onClick={resetGame} className="m-2 border-[2px] border-gray-500 rounded-lg p-1 hover:scale-110 transition duration-300">Play Again?</button>
     </div>
-  </>);
+    <div className={`${noWord ? "opacity-100" : "opacity-0"} pointer-events-none p-4 flex flex-col items-center absolute w-56 h-20 bg-white border-[1px] border-black top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}>
+      <h2 className="font-bold text-lg">Try Again</h2>
+      <p> {guesses[guess]} is not a word</p>
+    </div>
+  </div >);
 }
