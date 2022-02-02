@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Mordle/static/css/main.52368a5c.css",
-    "main.js": "/Mordle/static/js/main.ffdbf931.js",
+    "main.css": "/Mordle/static/css/main.46633cdd.css",
+    "main.js": "/Mordle/static/js/main.df417081.js",
     "index.html": "/Mordle/index.html",
-    "main.52368a5c.css.map": "/Mordle/static/css/main.52368a5c.css.map",
-    "main.ffdbf931.js.map": "/Mordle/static/js/main.ffdbf931.js.map"
+    "main.46633cdd.css.map": "/Mordle/static/css/main.46633cdd.css.map",
+    "main.df417081.js.map": "/Mordle/static/js/main.df417081.js.map"
   },
   "entrypoints": [
-    "static/css/main.52368a5c.css",
-    "static/js/main.ffdbf931.js"
+    "static/css/main.46633cdd.css",
+    "static/js/main.df417081.js"
   ]
 }
