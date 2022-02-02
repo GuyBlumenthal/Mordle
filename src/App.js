@@ -60,7 +60,7 @@ export default function App() {
   genWord()
 
   const emptyGuesses = ["     ", "     ", "     ", "     ", "     ", "     "]
-  const [word, setWord] = useState("APPLE")
+  const [word, setWord] = useState(genWord())
   const [noWord, setNoWord] = useState(false)
 
   const [guess, setGuess] = useState(0);
