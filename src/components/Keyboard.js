@@ -2,7 +2,7 @@ export default function Keyboard(props) {
     const keyboard = [
         'QWERTYUIOP',
         'ASDFGHJKL',
-        'bZXCVBNMe',
+        'eZXCVBNMb',
     ]
 
     const splitWord = props.word.split('')
@@ -19,7 +19,7 @@ export default function Keyboard(props) {
     const misses = []
     const wrongs = []
 
-    guesses.map((el, index) => {
+    guesses.forEach((el) => {
         if (splitWord.includes(el)) {
             misses.push(el)
         } else {
