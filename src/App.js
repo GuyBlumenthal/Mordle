@@ -53,11 +53,14 @@ export default function App() {
     'bang': 'bg-green-500',
     'miss': 'bg-yellow-300',
     'wrong': 'bg-gray-300',
-    'empty': 'bg-white'
+    'empty': 'bg-white',
+    'keyboard': 'bg-gray-200'
   }
 
+  genWord()
+
   const emptyGuesses = ["     ", "     ", "     ", "     ", "     ", "     "]
-  const [word, setWord] = useState(genWord())
+  const [word, setWord] = useState("APPLE")
   const [noWord, setNoWord] = useState(false)
 
   const [guess, setGuess] = useState(0);
@@ -79,7 +82,7 @@ export default function App() {
     <div className={`${gameOver | noWord ? "pointer-events-none opacity-40  transition-opacity ease-in duration-500 delay-500" : "opacity-100"} flex flex-col items-center`}>
       <h1 className="text-xl">Mordle</h1>
       <Board guess={guess} guesses={guesses} word={word} color_dict={color_dict} />
-      <Keyboard onClick={(text) => keyboardClick(text)} />
+      <Keyboard word={word} guesses={guesses} color_dict={color_dict} guess={guess} onClick={(text) => keyboardClick(text)} />
     </div>
     <div className={`${gameOver ? "opacity-100  transition-opacity ease-in duration-500 delay-1000" : "pointer-events-none opacity-0"} p-4 flex flex-col items-center absolute w-56 h-40 bg-white border-[1px] border-black top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`}>
       <h2 className="font-bold text-lg underline">{guesses[guess - 1] === word ? "You win!" : "Oh no... Game Over!"}</h2>
